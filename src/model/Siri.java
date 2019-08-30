@@ -1,16 +1,23 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Siri implements Serializable{
-	private String before;
+	private String before="";
 	private String after;
-	private String msg;
-	private boolean ok;
+	private String msg="";
+	private boolean ok=true;
+	private List<String> wordList=new ArrayList<>();
+	private String displayWord;
+
+
 	public Siri() {}
-	public Siri(String before,String after) {
-		this.before=before;
+	public Siri(String after) {
 		this.after=after;
+		wordList.add(after);
+		this.displayWord=after;
 	}
 	public String getBefore() {
 		return before;
@@ -35,6 +42,18 @@ public class Siri implements Serializable{
 	}
 	public void setOk(boolean ok) {
 		this.ok = ok;
+	}
+	public List<String> getWordList() {
+		return wordList;
+	}
+	public void setWordList(List<String> wordList) {
+		this.wordList = wordList;
+	}
+	public String getDisplayWord() {
+		return displayWord;
+	}
+	public void setDisplayWord(String displayWord) {
+		this.displayWord = displayWord;
 	}
 
 }

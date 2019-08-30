@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="model.*"%>
 <%
-Siri siri=(Siri)request.getAttribute("siri");
-String before=siri==null? "ごりら":siri.getAfter();
+Siri siri=(Siri)session.getAttribute("siri");
 String errorMsg=(String)request.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
@@ -13,20 +12,20 @@ String errorMsg=(String)request.getAttribute("errorMsg");
 </head>
 <body>
 <h1>しりとりゲーム</h1>
-<%=before %>
-<%if(siri==null || !siri.getMsg().contains("NG")){ %>
-<form action="/siri/Main" method="post">
+<%=siri.getDisplayWord() %>
+<%if(siri.isOk()){ %>
+<form action="/siri3/Main" method="post">
 <input type="text" name="after">
-<input type="hidden" name="before" value="<%=before%>">
 <input type="submit" value="送信">
 </form>
 <%} %>
 <%if (errorMsg != null){ %>
 <p><%=errorMsg %></p>
-<%} %>
-<p><%=siri==null?"":siri.getMsg() %></p>
-<%if(siri !=null &&siri.getMsg().contains("NG")){ %>
-<p><a href="/siri/Main">最初に戻る</a></p>
+<%}else{ %>
+	<p><%=siri.getMsg() %></p>
+	<%if(!siri.isOk()){ %>
+	<p><a href="/siri3/Main">最初に戻る</a></p>
+	<%} %>
 <%} %>
 </body>
 </html>
